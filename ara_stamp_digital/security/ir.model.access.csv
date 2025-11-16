@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_stamp_reward_manager,stamp_reward_manager,model_stamp_reward,,1,1,1,1
+access_reedem_stamp_manager,reedem_stamp_manager,model_reedem_stamp,,1,1,1,1

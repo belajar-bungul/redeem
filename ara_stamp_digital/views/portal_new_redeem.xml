@@ -1,0 +1,78 @@
+<odoo>
+  <template id="website_new_redeem" name="New Redeem">
+    <t t-call="website.layout">
+      <div class="container mt16 mb16">
+        <h2>Redeem Point - <t t-esc="card.program_id.name"/></h2>
+        <form action="/my/redeems_stamp/create" method="post">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+          <!-- Program -->
+          <div class="form-group mb-3" style="display: none;">
+            <label>Program</label>
+            <select id="program_id" name="program_id" class="form-control" readonly="readonly">
+              <option t-att-value="card.program_id.id"><t t-esc="card.program_id.name"/></option>
+            </select>
+          </div>
+
+          <!-- Product -->
+          <input type="hidden" name="product_id" t-att-value="selected_product.id"/>
+          <b>
+            <label>Product</label>
+          </b>
+          <p><t t-esc="selected_product.display_name"/></p>
+  
+
+          <!-- Delivery Method -->
+          <div class="form-group mb-3">
+            <b>
+            <label>Delivery Method</label>
+            </b>
+            <select name="delivery_method" class="form-control" required="required">
+              <option value="">-- Select Methode --</option>
+              <option value="pickup">Pickup</option>
+              <option value="delivery">Delivery</option>
+            </select>
+          </div>
+          <t t-if="request.session.get('redeem_error')">
+            <div class="alert alert-danger col-md-12">
+                <t t-esc="request.session.pop('redeem_error')"/>
+            </div>
+          </t>
+          <button type="submit" class="btn btn-success">Submit</button>
+          <a t-att-href="'/my/redeems_stamp/products/%s' % card.id" class="btn btn-danger">Cancel</a>
+
+        </form>
+      </div>
+
+    <script type="text/javascript">
+        <![CDATA[
+        odoo.define('ara_stamp_digital.redeem_form', function(require){
+            "use strict";
+            var domReady = require('web.dom_ready');
+            var $ = require('jquery');
+
+            domReady.then(function(){
+                var $productSelect = $('#product_select');
+                var $pointRules = $('#point_rules');
+                var $noProducts = $('#no_products_msg');
+
+                if($productSelect.find('option').length <= 1){
+                    $noProducts.removeClass('d-none');
+                    $productSelect.prop('disabled', true);
+                }
+
+
+                $productSelect.on('change', function(){
+                    var point = $(this).find(':selected').data('point') || '-';
+                    $('#point_rules').text(point);
+                });
+
+            });
+        });
+        ]]>
+    </script>
+
+
+    </t>
+  </template>
+</odoo>

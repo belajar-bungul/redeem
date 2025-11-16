@@ -1,0 +1,32 @@
+<odoo>
+  <template id="website_select_card" name="Select Loyalty Card">
+    <t t-call="website.layout">
+      <div class="container mt16 mb16">
+        <h2>Choose Stamp Redeem</h2>
+        <hr></hr>
+        <t t-if="cards">
+          <div class="row">
+            <t t-foreach="cards" t-as="card">
+              <div t-if="card.points != 0" class="col-md-4 mb-3">
+                <div class="card text-white bg-info mb-3">
+                  <div class="card-body">
+                    <h5 class="card-title"><t t-esc="card.program_id.name"/></h5>
+                    <p class="card-text">Your Stamp: <t t-esc="int(card.points)"/></p>
+                    <a t-attf-href="/my/redeems_stamp/products/{{card.id}}" class="btn btn-primary">Choose</a>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </div>
+        </t>
+
+        <t t-else="">
+          <div class="alert alert-warning col-md-12" role="alert">
+            Sorry, You not have stamp !!!
+          </div>
+        </t>
+        
+      </div>
+    </t>
+  </template>
+</odoo>

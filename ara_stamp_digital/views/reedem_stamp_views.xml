@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View reedem.stamp View List -->
+    <record id="view_reedem_stamp_list" model="ir.ui.view">
+        <field name="name">view.reedem.stamp.list</field>
+        <field name="model">reedem.stamp</field>
+        <field name="arch" type="xml">
+            <list>
+                <header>
+                    <button name="process_line"
+                            type="object"
+                            string="Process Reedem"
+                            class="btn-primary"/>
+                </header>
+                <field name="partner_id"/>
+                <field name="program_id" />
+                <field name="stamp_point_saldo"/>
+                <field name="product_id" />
+                <field name="stamp_point_rules" />
+                <field name="delivery_method" />
+                <field name="create_date" string="Create Date" 
+                widget="datetime"
+                options="{'format': 'dd-MMM-yyyy HH:mm:ss'}"/>
+                <field name="create_uid" string="Create By"/>
+                <field name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'done'"/>            
+                    
+            </list>
+        </field>
+    </record>
+
+    <!-- View reedem.stamp form -->
+    <record id="view_reedem_stamp_form" model="ir.ui.view">
+        <field name="name">view.reedem.stamp.form</field>
+        <field name="model">reedem.stamp</field>
+        <field name="arch" type="xml">
+            <form string="Reedem Stamp">
+                <header>
+                    <button name="process_line"
+                            type="object"
+                            string="Process Reedem"
+                            class="btn-primary"
+                            invisible="state == 'done'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button name="view_scrap" type="object" class="oe_stat_button" icon="fa-truck" invisible="state == 'draft'">
+                    Transfer
+                    </button>
+                </div>
+                <group>
+                    <field name="partner_id" options="{'no_create': True, 'no_create_edit': True}" />
+                    <field name="program_id" 
+                    domain="[('program_type', '=', 'loyalty'),('is_stamp','=', True)]"
+                    options="{'no_create': True, 'no_create_edit': True}" 
+                    />
+                    <field name="stamp_point_saldo"/>
+                    <field name="product_id" 
+                    options="{'no_create': True, 'no_create_edit': True}" />
+                    <field name="stamp_point_rules" />
+                    <field name="stamp_reward_product_ids" 
+                    invisible="1"
+                    />
+                    <field name="delivery_method" />
+
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action reedem.stamp -->
+    <record id="action_reedem_stamp" model="ir.actions.act_window">
+        <field name="name">Redeem Stamp</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">reedem.stamp</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Redeem Stamp.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="redeem_menu"
+        name="Redeem"
+        parent="point_of_sale.pos_config_menu_catalog"
+        sequence="94"/>
+
+    <menuitem
+        id="reedem_stamp_menu"
+        name="Redeem Stamp"
+        action="action_reedem_stamp"
+        parent="ara_stamp_digital.redeem_menu"
+        sequence="1"/>
+
+</odoo>

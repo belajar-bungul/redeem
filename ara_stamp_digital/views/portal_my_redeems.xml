@@ -1,0 +1,83 @@
+<odoo>
+  <template id="website_my_redeems" name="My Redeems">
+    <t t-call="website.layout">
+      <div class="container mt16 mb16">
+        <h2>History Redeems Stamp</h2>
+        <hr/>
+        <!-- Table for desktop -->
+        <div class="d-none d-md-block">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Program</th>
+                <th>Create Date</th>
+                <th>Product</th>
+                <th>Point Rules</th>
+                <th>Delivery Method</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-foreach="redeems" t-as="r">
+                <tr>
+                  <td><t t-esc="r.program_id.name"/></td>
+                  <td><t t-esc="r.create_date.strftime('%d %b %Y') if r.create_date else '-'"/></td>
+                  <td><t t-esc="r.product_id.display_name"/></td>
+                  <td><t t-esc="r.stamp_point_rules"/></td>
+                  <td><t t-esc="r.delivery_method"/></td>
+                  <td>
+                    <span t-attf-class="badge 
+                      #{ 'bg-info' if r.state=='draft' else 
+                         'bg-success' if r.state=='done' else 
+                         'bg-secondary' }">
+                      <t t-esc="r.state"/>
+                    </span>
+                  </td>
+                </tr>
+              </t>
+              <t t-if="not redeems">
+                <tr>
+                  <td colspan="6">No redeems found.</td>
+                </tr>
+              </t>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Card for mobile -->
+        <div class="d-block d-md-none">
+          <div class="row gx-3 gy-3">
+            <t t-foreach="redeems" t-as="r">
+              <div class="col-12">
+                <div class="card shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title"><t t-esc="r.program_id.name"/></h5>
+                    <p class="card-text">
+                      <strong>Created:</strong> <t t-esc="r.create_date.strftime('%d %b %Y') if r.create_date else '-'"/><br/>
+                      <strong>Product:</strong> <t t-esc="r.product_id.display_name"/><br/>
+                      <strong>Points:</strong> <t t-esc="r.stamp_point_rules"/><br/>
+                      <strong>Delivery:</strong> <t t-esc="r.delivery_method"/><br/>
+                      <strong>Status:</strong>
+                      <span t-attf-class="badge 
+                        #{ 'bg-info' if r.state=='draft' else 
+                           'bg-success' if r.state=='done' else 
+                           'bg-secondary' }">
+                        <t t-esc="r.state"/>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </t>
+            <t t-if="not redeems">
+              <div class="col-12">
+                <p>No redeems found.</p>
+              </div>
+            </t>
+          </div>
+        </div>
+
+      </div>
+    </t>
+  </template>
+</odoo>

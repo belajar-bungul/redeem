@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- View loyalty.program form -->
+    <record id="view_loyalty_program_form" model="ir.ui.view">
+        <field name="name">view.loyalty.program.form</field>
+        <field name="model">loyalty.program</field>
+        <field name="inherit_id" ref="loyalty.loyalty_program_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="before">
+                <field name="is_stamp" />
+                <!-- <field name="max_stamp" invisible="not is_stamp" /> -->
+            </xpath>
+            <xpath expr="//page[@name='communications']" position="after">
+                <page string="Stamp Reward" invisible="not is_stamp">
+                    <field name="stamp_reward_ids" >
+                        <list editable="bottom">
+                            <field name="product_id" />
+                            <field name="point_rules" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

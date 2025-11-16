@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Parent menu -->
+        <record id="menu_redeem_parent" model="website.menu">
+            <field name="name">Redeem</field>
+            <field name="url">#</field> <!-- Route ke controller -->
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">88</field>
+        </record>
+        <!-- Submenu New Redeem -->
+        <record id="menu_redeem_stamp" model="website.menu">
+            <field name="name">Redeem Stamp</field>
+            <field name="url">/my/redeems/select_card</field>
+            <field name="parent_id" ref="menu_redeem_parent"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="menu_my_redeem" model="website.menu">
+            <field name="name">History Redeem Stamp</field>
+            <field name="url">/my/redeems</field>
+            <field name="parent_id" ref="menu_redeem_parent"/>
+            <field name="sequence">3</field>
+        </record>
+    </data>
+</odoo>
