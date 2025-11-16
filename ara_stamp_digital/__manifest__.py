@@ -24,7 +24,7 @@
         "views/portal_card.xml",
         "views/portal_product_stamp.xml",
     ],
-    "price" : 88.22,
-    "currency" : "EUR",
+    "price" : 96.22,
+    "currency" : "USD",
     "installable": True,
 }
