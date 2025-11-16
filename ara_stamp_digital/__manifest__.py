@@ -4,8 +4,9 @@
     "version": "18.0.0.0.0",
     "license": "OPL-1",
     "summary": "Website Customization",
+    'images': ['static/description/banner.gif'],
     "category": "Website",
-    "author": "",
+    "author": "ARA SOFT",
     "website": "",
     "description": """
         Website Customization
